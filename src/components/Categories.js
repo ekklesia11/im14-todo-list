@@ -1,13 +1,17 @@
-import React from 'react'
-import EachCategory from './EachCategory'
-import AddCat from './AddCat'
+import React from 'react';
+import EachCategory from './EachCategory';
+import AddCat from './AddCat';
 
 export default function Categories(props) {
     return (
         <div className='categories-list' style={categoriesList}>
             {props.categories.map((cat, i) => 
-                <EachCategory key={i} cat={cat} handleCatChange={props.handleCatChange}/>)}
-            <AddCat handleAddCat={props.handleAddCat} handleAddCatByEnter={props.handleAddCatByEnter}/>
+                <EachCategory key={i} cat={cat} 
+                handleCatChange={props.handleCatChange}/>)}
+            <AddCat 
+            handleAddCat={props.handleAddCat} 
+            handleAddCatByEnter={props.handleAddCatByEnter} 
+            />
         </div>
     )
 }

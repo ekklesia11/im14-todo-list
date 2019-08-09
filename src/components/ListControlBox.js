@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import Search from './Search'
-import Categories from './Categories'
+import React, { Component } from 'react';
+import Search from './Search';
+import Categories from './Categories';
 import TodoUnderCat from './TodoUnderCat';
 
 export default class ListControlBox extends Component {

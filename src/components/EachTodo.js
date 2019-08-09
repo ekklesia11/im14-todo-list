@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 export default class EachTodo extends Component {
     constructor(props) {
@@ -18,7 +18,9 @@ export default class EachTodo extends Component {
         return (
             <div className='todo' 
             onClick={this.handleDoneTodo} 
-            style={{textDecoration: this.state.done ? 'line-through' : 'none'}}>
+            style={
+                {textDecoration: this.state.done ? 'line-through' : 'none'}
+                }>
                 {this.props.todo}
             </div>
         )

@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
-import Quotes from './components/Quotes'
-import ListControlBox from './components/ListControlBox'
+import React, { Component } from 'react';
+import Quotes from './components/Quotes';
+import ListControlBox from './components/ListControlBox';
+import './App.css';
 
 export default class App extends Component {
   constructor() {

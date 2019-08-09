@@ -1,6 +1,6 @@
-import React from 'react'
-import EachTodo from './EachTodo'
-import AddTodo from './AddTodo'
+import React from 'react';
+import EachTodo from './EachTodo';
+import AddTodo from './AddTodo';
 
 export default function TodoUnderCat(props) {
     return (
@@ -9,7 +9,10 @@ export default function TodoUnderCat(props) {
             (cat.categoryName === props.location ? 
                 (cat.todos.map((todo, i) => 
             <EachTodo key={i} todo={todo} />)) : []))}
-            <AddTodo handleAddTodo={props.handleAddTodo} handleAddTodoByEnter={props.handleAddTodoByEnter}/>
+            <AddTodo 
+            handleAddTodo={props.handleAddTodo} 
+            handleAddTodoByEnter={props.handleAddTodoByEnter}
+            />
         </div>
     )
 }
