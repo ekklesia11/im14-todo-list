@@ -19,9 +19,8 @@ export default class EachTodo extends Component {
             <div className='todo' 
             onClick={this.handleDoneTodo} 
             style={
-                {textDecoration: this.state.done ? 'line-through' : 'none'}
-                }>
-                {this.props.todo}
+                {textDecoration: this.state.done ? 'line-through' : 'none', margin: '1rem', cursor: 'pointer'}}>
+                <span>✏️</span> {' ' + this.props.todo}
             </div>
         )
     }

@@ -27,15 +27,17 @@ export default class ListControlBox extends Component {
 
     handleAddTodo = () => {
         let input = document.getElementsByClassName('addTodo')[0].children[0];
-        let newCategories = this.state.categories.slice();
-        for (let cat of newCategories) {
-            if (cat.categoryName === this.state.location) {
-                cat.todos.push(input.value);
+        if (input.value !== '') {
+            let newCategories = this.state.categories.slice();
+            for (let cat of newCategories) {
+                if (cat.categoryName === this.state.location) {
+                    cat.todos.push(input.value);
+                }
             }
+            this.setState({
+                categories: newCategories,
+            })
         }
-        this.setState({
-            categories: newCategories,
-        })
         input.value = '';
     }
 
@@ -55,13 +57,15 @@ export default class ListControlBox extends Component {
     handleAddCat = () => {
         let catInput = document.getElementsByClassName('add-categories')[0].children[0];
         console.log(catInput.value)
-        this.setState({
-            categories: this.state.categories.concat({
-                categoryName: catInput.value,
-                todos: [],
-            }),
-            location: catInput.value,
-        })
+        if (catInput.value !== '') {
+            this.setState({
+                categories: this.state.categories.concat({
+                    categoryName: catInput.value,
+                    todos: [],
+                }),
+                location: catInput.value,
+            })
+        }
 
         catInput.value = '';
     }
@@ -76,9 +80,10 @@ export default class ListControlBox extends Component {
         return (
             <div className='list-control-box'>
                 <Search />
-                <h4 style={catName}>{this.state.location}</h4><br></br>
+                <h2 style={catName}>{this.state.location}</h2><br></br>
                 <Categories 
                 categories={this.state.categories} 
+                location={this.state.location}
                 handleCatChange={this.handleCatChange} 
                 handleAddCat={this.handleAddCat}
                 handleAddCatByEnter={this.handleAddCatByEnter}

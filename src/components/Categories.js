@@ -7,7 +7,8 @@ export default function Categories(props) {
         <div className='categories-list' style={categoriesList}>
             {props.categories.map((cat, i) => 
                 <EachCategory key={i} cat={cat} 
-                handleCatChange={props.handleCatChange}/>)}
+                handleCatChange={props.handleCatChange}
+                location={props.location}/>)}
             <AddCat 
             handleAddCat={props.handleAddCat} 
             handleAddCatByEnter={props.handleAddCatByEnter} 
@@ -17,9 +18,10 @@ export default function Categories(props) {
 }
 
 const categoriesList = {
-    border: '1px solid red',
     display: 'inline-block',
     position: 'relative',
-    height: '550px',
+    height: 'calc(100vh - 120px)',
     width: '30%',
+    marginTop: '3px',
+    fontSize: '1.5rem',
 }

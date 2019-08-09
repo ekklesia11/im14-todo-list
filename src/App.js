@@ -9,7 +9,7 @@ export default class App extends Component {
     this.state = {
       quotes: {
         who: 'Dobby',
-        say: 'Hello, master.'
+        say: '"Hello, master." © 2019'
       },
     }
   }
@@ -33,7 +33,7 @@ export default class App extends Component {
     return (
       <div className='control-center'>
       <div className='title' style={title}>
-        <h1 style={{margin: '0'}}>To Do List</h1>
+        <h1 style={{margin: '0', marginLeft: '10px'}}>Simple To Do List</h1>
       </div>
         <ListControlBox />
         <Quotes quotes={this.state.quotes}/>
@@ -43,9 +43,11 @@ export default class App extends Component {
 }
 
 const title = {
-  backgroundColor: '#ffff33',
+  backgroundColor: '#fffff0',
   position: 'relative',
-  top: '0',
-  width: '100%',
+  top: '1px',
+  left: '2px',
+  width: 'calc(100% - 4px)',
+  borderBottom: '1px solid #bc9e82',
+  marginBottom: '5px'
 }
-

@@ -1,6 +1,7 @@
 import React from 'react';
 import EachTodo from './EachTodo';
 import AddTodo from './AddTodo';
+import notebook from '../notebook.png'
 
 export default function TodoUnderCat(props) {
     return (
@@ -18,8 +19,12 @@ export default function TodoUnderCat(props) {
 }
 
 const todoUnderCat = {
-    border: '1px solid blue',
-    height: '550px',
     float: 'right',
+    height: 'calc(100vh - 120px)',
     width: '69%',
+    position: 'relative',
+    marginTop: '3px',
+    backgroundImage: `url(${notebook})`,
+    backgroundSize: '40%',
+    fontSize: '1.5rem'
 }
