@@ -8,8 +8,8 @@ export default function TodoUnderCat(props) {
         <div className='todoUnderCat' style={todoUnderCat}>
             {props.categories.map(cat => 
             (cat.categoryName === props.location ? 
-                (cat.todos.map((todo, i) => 
-            <EachTodo key={i} todo={todo} />)) : []))}
+                (cat.todos.map((todoObj, i) => 
+            <EachTodo key={i} todoObj={todoObj} handleDoneTodo={props.handleDoneTodo} />)) : ''))}
             <AddTodo 
             handleAddTodo={props.handleAddTodo} 
             handleAddTodoByEnter={props.handleAddTodoByEnter}

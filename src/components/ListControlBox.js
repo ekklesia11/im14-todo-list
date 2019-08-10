@@ -31,7 +31,10 @@ export default class ListControlBox extends Component {
             let newCategories = this.state.categories.slice();
             for (let cat of newCategories) {
                 if (cat.categoryName === this.state.location) {
-                    cat.todos.push(input.value);
+                    let obj = {done: false,}
+                    obj.id = Math.random().toString();
+                    obj.todo = input.value;
+                    cat.todos.push(obj);
                 }
             }
             this.setState({
@@ -76,6 +79,22 @@ export default class ListControlBox extends Component {
         }
     }
 
+    handleDoneTodo = (e) => {
+        console.dir(e.target)
+        // let newCategories = this.state.categories.slice();
+        // for (let cat of newCategories) {
+        //     if (cat.categoryName === this.state.location) {
+        //         for (let todo of cat.todos) {
+        //             if (todo.todo === e.)
+        //         }
+        //     }
+        // }
+
+        // this.setState({
+        //     done: !this.state.done,
+        // })
+    }
+
     render() {
         return (
             <div className='list-control-box'>
@@ -93,6 +112,7 @@ export default class ListControlBox extends Component {
                 location={this.state.location} 
                 handleAddTodo={this.handleAddTodo}
                 handleAddTodoByEnter={this.handleAddTodoByEnter}
+                handleDoneTodo={this.handleDoneTodo}
                 />
             </div>
         )

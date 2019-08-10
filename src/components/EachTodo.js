@@ -1,27 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class EachTodo extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            done: false,
-        }
-    }
-
-    handleDoneTodo = () => {
-        this.setState({
-            done: !this.state.done,
-        })
-    }
-
-    render() {
-        return (
-            <div className='todo' 
-            onClick={this.handleDoneTodo} 
-            style={
-                {textDecoration: this.state.done ? 'line-through' : 'none', margin: '1rem', cursor: 'pointer'}}>
-                <span>✏️</span> {' ' + this.props.todo}
-            </div>
-        )
-    }
+export default function EachTodo(props) {
+    return (
+        <div className='todo' 
+        onClick={props.handleDoneTodo} 
+        style={{textDecoration: props.done ? 'line-through' : 'none', margin: '1rem', cursor: 'pointer'}}
+        id={props.todoObj.id}>
+        {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
+            <span>✏️</span> {' ' + props.todoObj.todo}
+        </div>
+    )
 }
