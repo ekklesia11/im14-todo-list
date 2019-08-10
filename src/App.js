@@ -30,6 +30,14 @@ export default class App extends Component {
   }
 
   render() {
+    console.group('Simple To Do Methods')
+    console.log(
+      'C',
+      'R',
+      'U',
+      'D',
+    )
+    console.groupEnd()
     return (
       <div className='control-center'>
       <div className='title' style={title}>

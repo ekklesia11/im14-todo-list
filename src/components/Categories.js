@@ -8,7 +8,8 @@ export default function Categories(props) {
             {props.categories.map((cat, i) => 
                 <EachCategory key={i} cat={cat} 
                 handleCatChange={props.handleCatChange}
-                location={props.location}/>)}
+                location={props.location}
+                handleRightClick={props.handleRightClick}/>)}
             <AddCat 
             handleAddCat={props.handleAddCat} 
             handleAddCatByEnter={props.handleAddCatByEnter} 
