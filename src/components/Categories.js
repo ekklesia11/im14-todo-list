@@ -11,8 +11,10 @@ export default function Categories(props) {
                 location={props.location}
                 handleRightClick={props.handleRightClick}/>)}
             <AddCat 
+            categoryInput={props.categoryInput}
             handleAddCat={props.handleAddCat} 
             handleAddCatByEnter={props.handleAddCatByEnter} 
+            catInputBring={props.catInputBring} 
             />
         </div>
     )

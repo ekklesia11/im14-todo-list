@@ -1,11 +1,17 @@
 import React from 'react';
 import searchImg from '../search.png';
 
-export default function Search() {
+export default function Search(props) {
     return (
         <div className='search' style={search}>
             <img src={searchImg} alt='' style={searchImgStyle}/>
-            <input type='text' placeholder='Search' style={searchInput}/>
+            <input type='text' 
+            placeholder='Search' 
+            className={'searchInput'} 
+            style={searchInput}
+            value={props.searchInput}
+            onChange={props.handleSearch}
+            />
         </div>
     )
 }

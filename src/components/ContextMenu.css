@@ -1,0 +1,22 @@
+.menu {
+    width: 60px;
+    height: 55px;
+    background-color: white;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+.menu-delete {
+    font-weight: 500;
+    font-size: 14px;
+    padding: 7px 0 5px 12px;
+    cursor: pointer;
+}
+.menu-change {
+    font-weight: 500;
+    font-size: 14px;
+    padding-left: 10px;
+    padding-top: 7px;
+    cursor: pointer;
+}

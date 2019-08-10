@@ -3,8 +3,9 @@ import React from 'react';
 export default function AddCat(props) {
     return (
         <div className='add-categories' style={addCat}>
-            <input type='text' 
+            <input type='text' value={props.categoryInput}
             onKeyPress={props.handleAddCatByEnter} 
+            onChange={props.catInputBring}
             style={addCatInput}/>
             <button 
             onClick={props.handleAddCat} 

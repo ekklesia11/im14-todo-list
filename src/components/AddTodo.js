@@ -3,8 +3,9 @@ import React from 'react';
 export default function AddTodo(props) {
     return (
         <div className='addTodo' style={addTodo}>
-            <input type='text' 
+            <input type='text' value={props.todoInput}
             onKeyPress={props.handleAddTodoByEnter} 
+            onChange={props.todoInputBring}
             style={addTodoInput}/>
             <button 
             onClick={props.handleAddTodo} 

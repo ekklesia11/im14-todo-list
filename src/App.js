@@ -37,6 +37,18 @@ export default class App extends Component {
       'U',
       'D',
     )
+    console.log('리스트그룹 :')
+    console.log('1. 새로운 리스트그룹 추가');
+    console.log('2. 원하는 리스트그룹 선택');
+    console.log('3. 리스트그룹 이름 변경');
+    console.log('4. 리스트그룹 삭제');
+    console.log('ToDo목록 :');
+    console.log('1. 새로운 todo 추가');
+    console.log('2. 리스트그룹별로 정리');
+    console.log('3. todo 내용 변경');
+    console.log('4. 완료시 crossout');
+    console.log('5. todo 삭제');
+    console.log('검색 : 구현 중...');
     console.groupEnd()
     return (
       <div className='control-center'>

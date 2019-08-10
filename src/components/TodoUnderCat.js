@@ -6,14 +6,24 @@ import notebook from '../notebook.png';
 export default function TodoUnderCat(props) {
     return (
         <div className='todoUnderCat' style={todoUnderCat}>
-            {props.categories.map(cat => 
-            (cat.id === props.location ? 
+            {props.searchInput === '' ? 
+            (props.categories.map(cat => (cat.id === props.location ? 
                 (cat.todos.map((todoObj, i) => 
-            <EachTodo key={i} 
-            todoObj={todoObj} 
-            handleDoneTodo={props.handleDoneTodo} 
-            handleRightClick={props.handleRightClick}/>)) : ''))}
+                <EachTodo key={i} 
+                todoObj={todoObj} 
+                handleDoneTodo={props.handleDoneTodo} 
+                handleRightClick={props.handleRightClick}/>)) : ''))) : 
+                (props.categories.map(cat => 
+                    (cat.todos.filter(todoObj => 
+                    todoObj.todo === props.searchInput).map((todoObj, i) =>
+                        <EachTodo key={i}
+                        todoObj={todoObj}
+                        handleDoneTodo={props.handleDoneTodo} 
+                        handleRightClick={props.handleRightClick}/>))))
+            }
             <AddTodo 
+            todoInput={props.todoInput}
+            todoInputBring={props.todoInputBring}
             handleAddTodo={props.handleAddTodo} 
             handleAddTodoByEnter={props.handleAddTodoByEnter}
             />

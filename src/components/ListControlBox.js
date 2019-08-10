@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Search from './Search';
 import Categories from './Categories';
 import TodoUnderCat from './TodoUnderCat';
-import Context from './Context'
-import Rename from './Rename';
+import ContextMenu from './ContextMenu'
+import FloatingInput from './FloatingInput';
 
 export default class ListControlBox extends Component {
     constructor() {
@@ -28,26 +28,50 @@ export default class ListControlBox extends Component {
             ],
             location: '001',
             targetId: null,
+            categoryInput: '',
+            todoInput: '',
+            searchInput: '',
+            contextMenu: ['close', 0, 0],
+            floatingInput: ['close', 0, 0, ''],
         }
     }
 
-    handleAddTodo = () => {
-        let input = document.getElementsByClassName('addTodo')[0].children[0];
-        if (input.value !== '') {
-            let newCategories = this.state.categories.slice();
-            for (let cat of newCategories) {
-                if (cat.id === this.state.location) {
-                    let obj = {done: false,}
-                    obj.id = Math.random().toString();
-                    obj.todo = input.value;
-                    cat.todos.push(obj);
-                }
-            }
+    // Add New Lists
+    catInputBring = (e) => {
+        this.setState({
+            categoryInput: e.target.value,
+        })
+    }
+
+    handleAddCat = () => {
+        let catInput = this.state.categoryInput;
+        let newId = Math.random();
+        if (catInput !== '') {
             this.setState({
-                categories: newCategories,
+                categories: [...this.state.categories, {
+                    id: newId.toString(),
+                    categoryName: catInput,
+                    todos: [],
+                }],
+                location: newId.toString(),
+                categoryInput: '',
+            })
+        } else {
+            this.setState({
+                categories: [...this.state.categories, {
+                    id: newId.toString(),
+                    categoryName: 'New List',
+                    todos: [],
+                }],
+                location: newId.toString(),
             })
         }
-        input.value = '';
+    }
+    
+    handleAddCatByEnter = (e) => {
+        if(e.charCode === 13) {
+            this.handleAddCat();
+        }
     }
 
     handleCatChange = (e) => {
@@ -56,202 +80,190 @@ export default class ListControlBox extends Component {
         })
     }
 
+    // Add New Todos
+    todoInputBring = (e) => {
+        this.setState({
+            todoInput: e.target.value,
+        })
+    }
+
+    handleAddTodo = () => {
+        let todoInput = this.state.todoInput;
+        if (todoInput !== '') {
+            let newCategories = this.state.categories.slice();
+            for (let cat of newCategories) {
+                if (cat.id === this.state.location) {
+                    let obj = {
+                        id: Math.random().toString(),
+                        todo: todoInput,
+                        done: false,
+                    }
+                    cat.todos.push(obj);
+                    return this.setState({
+                        categories: newCategories,
+                        todoInput: '',
+                    })
+                }
+            }
+        }
+    }
+    
     handleAddTodoByEnter = (e) => {
         if(e.charCode === 13) {
             this.handleAddTodo();
         }
     }
-
-    handleAddCat = () => {
-        let catInput = document.getElementsByClassName('add-categories')[0].children[0];
-        let newId = Math.random();
-        if (catInput.value !== '') {
-            this.setState({
-                categories: this.state.categories.concat({
-                    id: newId.toString(),
-                    categoryName: catInput.value,
-                    todos: [],
-                }),
-                location: newId.toString(),
-            })
-        } else {
-            this.setState({
-                categories: this.state.categories.concat({
-                    id: newId.toString(),
-                    categoryName: 'New List',
-                    todos: [],
-                }),
-                location: newId.toString(),
-            })
-        }
-
-        catInput.value = '';
-    }
-
-    handleAddCatByEnter = (e) => {
-        if(e.charCode === 13) {
-            this.handleAddCat();
-        }
-    }
-
+    
+    // when Todo is done
     handleDoneTodo = (e) => {
-        // console.dir(e.target)
         let newCategories = this.state.categories.slice();
         for (let cat of newCategories) {
             if (cat.id === this.state.location) {
                 for (let todo of cat.todos) {
                     if (todo.id === e.target.id) {
                         todo.done = !todo.done;
+                        return this.setState({
+                            categories: newCategories,
+                        })
                     }
                 }
             }
         }
 
+    }
+
+    // Right click Context Menu open
+    handleRightClick = (e) => {
+        e.preventDefault();
+        this.setState({
+            contextMenu: ['open', e.pageX, e.pageY],
+            targetId: e.target.id,
+        })
+    }
+
+    contextMenuClose = (e) => {
+        this.setState({
+            contextMenu: ['close', 0, 0],
+        })
+    }
+
+    
+    // Delete contents
+    handleDelete = () => {
+        let newCategories = this.state.categories.filter(cat => cat.id !== this.state.targetId);
+        for (let cat of newCategories) {
+            for (let i in cat.todos) {
+                if (cat.todos[i].id === this.state.targetId) {
+                    cat.todos.splice(i, 1)
+                }
+            }
+        }
         this.setState({
             categories: newCategories,
         })
     }
-
-    handleRightClick = (e) => {
-        const menu = document.getElementsByClassName('menu');
-        let menuVisible = false;
-
-        const toggleMenu = command => {
-        menu[0].style.display = command === "show" ? "block" : "none";
-        menuVisible = !menuVisible;
-        };
-
-        const setPosition = ({ top, left }) => {
-        menu[0].style.left = `${left}px`;
-        menu[0].style.top = `${top}px`;
-        toggleMenu("show");
-        };
-
-        window.addEventListener("click", e => {
-        if(menuVisible)toggleMenu("hide");
-        });
-
-        e.preventDefault();
-        
+    
+    // Floating input box Open
+    openFloatingInput = (e) => {
         this.setState({
-            targetId: e.target.id,
+            floatingInput: ['open', e.pageX, e.pageY, ''],
         })
-
-        const origin = {
-            left: e.pageX,
-            top: e.pageY
-        };
-        setPosition(origin);
-        // return false;
+    }
+    
+    // Categories && Todo contents change
+    floatingInputBring = (e) => {
+        let arr = this.state.floatingInput;
+        arr[3] = e.target.value;
+        return this.setState({
+            floatingInput: arr,
+        })
     }
 
-    handleDelete = () => {
-        for (let i = 0; i < this.state.categories.length; i++) {
-            if (this.state.categories[i].id === this.state.targetId) {
-                let newState = this.state.categories.slice();
-                newState.splice(i, 1);
-                return this.setState({
-                    categories: newState,
-                })
-            }
-            for (let k = 0; k < this.state.categories[i].todos.length; k++) {
-                if (this.state.categories[i].todos[k].id === this.state.targetId) {
-                    let newState = this.state.categories.slice();
-                    newState[i].todos.splice(k, 1);
-                    return this.setState({
-                    categories: newState,
-                })
+    handleContentsChange = (e) => {
+        if (this.state.floatingInput[3] !== '') {
+            let newCategories = this.state.categories.map(cat => {
+                if (cat.id === this.state.targetId) {
+                    cat.categoryName = this.state.floatingInput[3];
+                    return cat;
                 }
-            }
+                return cat
+            });
+            console.log(newCategories)
+            for (let cat of newCategories) {
+                for (let i in cat.todos) {
+                    if (cat.todos[i].id === this.state.targetId) {
+                        cat.todos[i].todo = this.state.floatingInput[3];
+                    }
+                }
+            };
+            this.setState({
+                categories: newCategories,
+            })
         }
     }
 
-    handleContentChange = (e) => {
-        const rename = document.getElementsByClassName('rename');
-        // console.dir(rename[0])
-        // let renameVisible = false;
-        
-        const toggleRename = command => {
-            rename[0].style.display = command === "show" ? "block" : "none";
-            // renameVisible = !renameVisible;
-        };
-
-        const setPosition = ({ top, left }) => {
-        rename[0].style.left = `${left}px`;
-        rename[0].style.top = `${top}px`;
-        toggleRename("show");
-        };
-
-        window.addEventListener("click", e => {
-            if (e.target !== document.getElementsByClassName('menu-option')[0] && e.target !== rename[0].children[0]) {
-                toggleRename("hide");
-            }
-        });
-        
-        window.addEventListener('keypress', e => {
-            let newText =  rename[0].children[0];
-            if (e.charCode === 13 && newText.value !== '') {
-                for (let i = 0; i < this.state.categories.length; i++) {
-                    if (this.state.categories[i].id === this.state.targetId) {
-                            let newState = this.state.categories.slice();
-                            newState[i].categoryName = newText.value;
-                            this.setState({
-                                categories: newState,
-                                location: this.state.targetId,
-                            })
-                    }
-                    for (let k = 0; k < this.state.categories[i].todos.length; k++) {
-                        if (this.state.categories[i].todos[k].id === this.state.targetId) {
-                            let newState = this.state.categories.slice();
-                            newState[i].todos[k].todo = newText.value;
-                            this.setState({
-                                categories: newState,
-                            })
-                        }
-                    }
-                }
-                newText.value = '';
-                toggleRename("hide");
-            }
-        })
-
-        e.preventDefault();
-
-        const origin = {
-            left: e.pageX,
-            top: e.pageY
-        };
-        setPosition(origin);
-        return false;
+    contentsChangeEnter = (e) => {
+        if(e.charCode === 13) {
+            this.handleContentsChange()
+            this.setState({
+                floatingInput: ['close', 0, 0, ''],
+            })
+        }
     }
+
+    // Search
+    handleSearch = (e) => {
+        this.setState({
+            searchInput: e.target.value,
+        })
+        // console.log(this.state.searchInput)
+    }
+
+    // handleSearch = (e) => {
+    //     let value = e.target.value;
+    //     console.log(value);
+    // }
 
     render() {
         return (
-            <div className='list-control-box'>
-                <Search />
+            <div className='list-control-box' onClick={this.contextMenuClose}>
+                <Search 
+                searchInput={this.state.searchInput}
+                handleSearch={this.handleSearch}
+                />
                 <h2 style={catName}>
                 {this.state.categories.map(locId => this.state.location === locId.id ? locId.categoryName : '')}
                 </h2><br></br>
                 <Categories 
                 categories={this.state.categories} 
                 location={this.state.location}
-                handleCatChange={this.handleCatChange} 
+                categoryInput={this.state.categoryInput}
+                catInputBring={this.catInputBring}
                 handleAddCat={this.handleAddCat}
                 handleAddCatByEnter={this.handleAddCatByEnter}
+                handleCatChange={this.handleCatChange} 
                 handleRightClick={this.handleRightClick}
                 />
                 <TodoUnderCat 
                 categories={this.state.categories} 
                 location={this.state.location} 
+                todoInput={this.state.todoInput}
+                searchInput={this.state.searchInput}
+                todoInputBring={this.todoInputBring}
                 handleAddTodo={this.handleAddTodo}
                 handleAddTodoByEnter={this.handleAddTodoByEnter}
                 handleDoneTodo={this.handleDoneTodo}
                 handleRightClick={this.handleRightClick}
                 />
-                <Context 
+                <ContextMenu 
+                contextMenu={this.state.contextMenu}
                 handleDelete={this.handleDelete}
-                handleContentChange={this.handleContentChange}/>
-                <Rename 
+                openFloatingInput={this.openFloatingInput}
+                />
+                <FloatingInput 
+                floatingInput={this.state.floatingInput}
+                floatingInputBring={this.floatingInputBring}
+                contentsChangeEnter={this.contentsChangeEnter}
                 />
             </div>
         )
