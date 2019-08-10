@@ -48,7 +48,8 @@ export default class App extends Component {
     console.log('3. todo 내용 변경');
     console.log('4. 완료시 crossout');
     console.log('5. todo 삭제');
-    console.log('검색 : 구현 중...');
+    console.log('검색 :');
+    console.log('정확히 일치하는 Todo목록만 검색 가능');
     console.groupEnd()
     return (
       <div className='control-center'>
