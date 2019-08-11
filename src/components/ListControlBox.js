@@ -165,9 +165,20 @@ export default class ListControlBox extends Component {
     
     // Floating input box Open
     openFloatingInput = (e) => {
-        this.setState({
-            floatingInput: ['open', e.pageX, e.pageY, ''],
-        })
+        for (let cat of this.state.categories) {
+            if (cat.id === this.state.targetId) {
+                return this.setState({
+                    floatingInput: ['open', e.pageX, e.pageY, cat.categoryName],
+                })
+            }
+            for (let todoObj of cat.todos) {
+                if (todoObj.id === this.state.targetId) {
+                    return this.setState({
+                        floatingInput: ['open', e.pageX, e.pageY, todoObj.todo],
+                    })
+                }
+            }
+        }
     }
     
     // Categories && Todo contents change
@@ -188,7 +199,6 @@ export default class ListControlBox extends Component {
                 }
                 return cat
             });
-            console.log(newCategories)
             for (let cat of newCategories) {
                 for (let i in cat.todos) {
                     if (cat.todos[i].id === this.state.targetId) {

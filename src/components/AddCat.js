@@ -36,5 +36,6 @@ const addCatInput = {
     marginLeft: '4px', 
     border: '1px solid #bc9e82', 
     outline: 'none', 
-    height: '1.5rem'
+    height: '1.5rem',
+    fontSize: '1rem'
 }

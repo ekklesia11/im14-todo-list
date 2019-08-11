@@ -5,4 +5,8 @@
 .floatingInputValue {
     border: 1px solid #bc9e82;
     outline: none;
+    padding: 0;
+    width: 127px;
+    height: 1.5rem;
+    font-size: 1rem;
 }

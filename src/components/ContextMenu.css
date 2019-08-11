@@ -10,13 +10,18 @@
 .menu-delete {
     font-weight: 500;
     font-size: 14px;
-    padding: 7px 0 5px 12px;
+    padding: 5px 0 5px 12px;
     cursor: pointer;
+}
+.menu-delete:hover {
+    background-color: beige;
 }
 .menu-change {
     font-weight: 500;
     font-size: 14px;
-    padding-left: 10px;
-    padding-top: 7px;
+    padding: 7px 0 3px 10px;
     cursor: pointer;
+}
+.menu-change:hover {
+    background-color: beige;
 }
