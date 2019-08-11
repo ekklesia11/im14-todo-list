@@ -237,7 +237,6 @@ export default class ListControlBox extends Component {
         this.setState({
             searchInput: e.target.value,
         })
-        // console.log(this.state.searchInput)
     }
 
     // handleSearch = (e) => {
