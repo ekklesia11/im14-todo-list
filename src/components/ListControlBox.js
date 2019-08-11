@@ -118,7 +118,18 @@ export default class ListControlBox extends Component {
     handleDoneTodo = (e) => {
         let newCategories = this.state.categories.slice();
         for (let cat of newCategories) {
-            if (cat.id === this.state.location) {
+            if (this.state.searchInput === '') {
+                if (cat.id === this.state.location) {
+                    for (let todo of cat.todos) {
+                        if (todo.id === e.target.id) {
+                            todo.done = !todo.done;
+                            return this.setState({
+                                categories: newCategories,
+                            })
+                        }
+                    }
+                }
+            } else {
                 for (let todo of cat.todos) {
                     if (todo.id === e.target.id) {
                         todo.done = !todo.done;
