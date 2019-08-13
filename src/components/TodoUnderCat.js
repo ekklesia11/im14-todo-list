@@ -15,7 +15,7 @@ export default function TodoUnderCat(props) {
                 handleRightClick={props.handleRightClick}/>)) : ''))) : 
                 (props.categories.map(cat => 
                     (cat.todos.filter(todoObj => 
-                    todoObj.todo === props.searchInput).map((todoObj, i) =>
+                    todoObj.todo.includes(props.searchInput)).map((todoObj, i) =>
                         <EachTodo key={i}
                         todoObj={todoObj}
                         handleDoneTodo={props.handleDoneTodo} 

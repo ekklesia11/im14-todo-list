@@ -156,6 +156,11 @@ export default class ListControlBox extends Component {
         this.setState({
             contextMenu: ['close', 0, 0],
         })
+        if (e.target.className !== 'floatingInputValue' && this.state.floatingInput[0] === 'open') {
+            this.setState({
+                floatingInput: ['close', 0, 0, ''],
+            })
+        }
     }
 
     
@@ -239,14 +244,10 @@ export default class ListControlBox extends Component {
         })
     }
 
-    // handleSearch = (e) => {
-    //     let value = e.target.value;
-    //     console.log(value);
-    // }
-
     render() {
         return (
-            <div className='list-control-box' onClick={this.contextMenuClose}>
+            <div className='list-control-box' 
+            onClick={this.contextMenuClose} >
                 <Search 
                 searchInput={this.state.searchInput}
                 handleSearch={this.handleSearch}

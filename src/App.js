@@ -48,8 +48,11 @@ export default class App extends Component {
     console.log('3. todo 내용 변경');
     console.log('4. 완료시 crossout');
     console.log('5. todo 삭제');
-    console.log('검색 :');
-    console.log('정확히 일치하는 Todo목록만 검색 가능');
+    console.log('----------------');
+    console.log('업데이트');
+    console.log('8/11 검색기능 추가');
+    console.log('8/14 검색기능 구현 완료');
+    console.log('8/14 변경시 입력창 안닫히는 문제 해결');
     console.groupEnd()
     return (
       <div className='control-center'>
